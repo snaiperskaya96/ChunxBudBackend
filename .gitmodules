@@ -1,0 +1,3 @@
+[submodule "thirdparty/proto"]
+	path = thirdparty/proto
+	url = https://github.com/snaiperskaya96/ChunxBudProto.git

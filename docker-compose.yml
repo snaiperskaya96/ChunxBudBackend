@@ -1,0 +1,27 @@
+version: '3'
+services:
+  updater:
+    build: .
+    command: python /usr/src/app/chunxbud-updater.py
+    volumes:
+      - ./src:/usr/src/app
+      - ./binaries:/binaries
+    ports:
+      - "6684:6684"
+    depends_on:
+      - protoc
+  protoc:
+    build: .
+    command: sh -c "protoc --proto_path=/proto/proto --python_out=/usr/src/app/proto /proto/proto/*.proto"
+    volumes:
+      - ./src:/usr/src/app
+      - ./thirdparty/proto:/proto
+  test:
+    build: .
+    command: python /usr/src/app/test.py
+    volumes:
+      - ./src:/usr/src/app
+      - ./binaries:/binaries
+    depends_on:
+      - updater
+    
